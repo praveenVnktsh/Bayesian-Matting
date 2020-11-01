@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import glob
 index = 9
 scale = 0.3
 # gt = cv2.resize(cv2.imread('trainingData/GT/GT' + str(index).zfill(2) + '.png'),(0,0), fx = scale, fy = scale, interpolation = cv2.INTER_NEAREST)
@@ -14,16 +15,19 @@ index = 15
 # cv2.imwrite('OUTPUT/' + str(index) + '-GT.png', img)
 # print(img.shape)
 
-def getGaussianWeights(size = 3, sigma=8):
-	"""
-	Uses an opencv api to return a Gaussian kernel for processing.
-	"""
-	gaussTemp = cv2.getGaussianKernel(size, sigma)
-	kernel = np.multiply(gaussTemp.T, gaussTemp)
-	kernel1 = np.dot(gaussTemp, gaussTemp.T)
-	print(kernel)
-	print(kernel1)
-	print(gaussTemp)
-	# return kernel, gaussTemp
 
-getGaussianWeights()
+for path in glob.glob('OUTPUT/TRIMAP/*'):
+    # print(path)
+    name = path[::-1][4:6][::-1]
+    # print(name)
+    img = cv2.imread(path)
+    # img = cv2.resize(img, (0,0), fx = 0.3, fy = 0.3)
+    # cv2.imwrite('OUTPUT/TRIMAP/' + name + '-TRIMAP.png', img)
+    print(path, img.size/3)
+
+# for path in glob.glob('OUTPUT/TRIMAP/*'):
+# 	img = cv2.imread(path)
+# 	img = cv2.resize(path, (0,0), fx = 0.3, fy =  0.3 )
+#     o = cv2.imwrite(path, img)
+    
+
