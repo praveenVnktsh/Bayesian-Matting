@@ -1,6 +1,10 @@
-## Probability and Random Processes - Assignment 3
-### Bayesian Matting
-###### Praveen Venkatesh
+<!-- ## Probability and Random Processes - Assignment 3 -->
+# Bayesian Matting
+###### Praveen Venkatesh 
+
+<!-- Link to repository - https://github.com/praveenVnktsh/Bayesian-Matting
+
+Relevant files have been added to the zip file as well. -->
 
 ### Implementation - Explanation
 
@@ -69,11 +73,9 @@ $$
 
 ### Notes on Implementation
 
-<!-- - Since the window could become rectangular at places, I have resized the window to convert it into a square. This may cause a reduction in accuracy at the edges. -->
-
 - When computing the covariance matrix, a small term is added to the diagonals in order to prevent divide by zero errors and issues with singular matrices.
 
-- There is a defined threshold for the amount of data required to solve for a particular pixel. Sometimes, there is not enough data provided to the solver to cross the threshold and hence it goes into an infinite loop. 
+- There is a defined threshold for the amount of data required to solve for a particular pixel. Sometimes, there is not enough data provided to the solver to cross the threshold and hence it goes into an infinite loop. To solve this, the window size is increased when the solver refuses to solve.
 
 - The images have been scaled down to 30% of their size in order to speed up computation. This is purely because of computational constraints as it takes too long to solve for the images.
 
