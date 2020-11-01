@@ -1,10 +1,6 @@
 ## Probability and Random Processes - Assignment 3
 ### Bayesian Matting
 ###### Praveen Venkatesh
-###### 18110127
-
-Link to Github repository - https://github.com/praveenVnktsh/Bayesian-Matting
-Relevant files have been included as part of the submission as well.
 
 ### Implementation - Explanation
 
@@ -113,5 +109,11 @@ Original | Trimap | Estimated   |  Ground Truth | SAD
 [4]"贝叶斯估计、最大似然估计、最大后验概率与Baysian Matting - EpsAvlc的博客", Epsavlc.github.io, 2020.  https://epsavlc.github.io/2018/12/22/baysian-matting.html. 
 
 [5] "Image Matting/Compositing", Ifp.illinois.edu, 2020. Available: http://www.ifp.illinois.edu/~yuhuang/matting.html.
+
+
+---------
+###### Disclaimer
+
+This repo was submitted as a submission for Assignment 3 of the Probability and Random Processes Course at IITGN during the Academic year 20-21
 
 
