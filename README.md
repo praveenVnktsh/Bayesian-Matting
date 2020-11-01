@@ -1,3 +1,4 @@
+
 <!-- ## Probability and Random Processes - Assignment 3 -->
 # Bayesian Matting
 ###### Praveen Venkatesh 
