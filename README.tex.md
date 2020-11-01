@@ -5,7 +5,7 @@
 
 Link to Github repository - https://github.com/praveenVnktsh/Bayesian-Matting
 Relevant files have been included as part of the submission as well.
-<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
+
 ### Implementation - Explanation
 
 Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by $\alpha$ and $1-\alpha$ respectively, where $\alpha$ is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of $\alpha$ for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
