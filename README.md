@@ -5,7 +5,7 @@
 
 Link to Github repository - https://github.com/praveenVnktsh/Bayesian-Matting
 Relevant files have been included as part of the submission as well.
-
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 ### Implementation - Explanation
 
 Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by $\alpha$ and $1-\alpha$ respectively, where $\alpha$ is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of $\alpha$ for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
@@ -82,23 +82,6 @@ $$
 - The images have been scaled down to 30% of their size in order to speed up computation. This is purely because of computational constraints as it takes too long to solve for the images.
 
 
-### References
-
-[1] Yung-Yu Chuang, Brian Curless, David H. Salesin, and Richard Szeliski. A Bayesian Approach to Digital Matting. In _Proceedings of IEEE Computer Vision and Pattern Recognition (CVPR 2001)_, Vol. II, 264-271, December 2001
-
-[2] Forte Marco, bayesian matting, (2018), GitHub repository, https://github.com/MarcoForte/bayesian-matting
-
-[3] Wakankar Anushka, Poisson Matting, (2019), GitHub repository https://github.com/anushkawakankar/Poisson-Matting
-
-[4]"贝叶斯估计、最大似然估计、最大后验概率与Baysian Matting - EpsAvlc的博客", Epsavlc.github.io, 2020.  https://epsavlc.github.io/2018/12/22/baysian-matting.html. 
-
-[5] "Image Matting/Compositing", Ifp.illinois.edu, 2020. Available: http://www.ifp.illinois.edu/~yuhuang/matting.html.
-
-
-
-
-
-<div style="page-break-after: always;"></div>
 
 ### Results
 
@@ -114,5 +97,21 @@ Original | Trimap | Estimated   |  Ground Truth | SAD
 ![](OUTPUT/ORIG/12-ORIG.png) |![](OUTPUT/TRIMAP/12-TRIMAP.png) |![](OUTPUT/MATTE/12-MATTE.png) |  ![](OUTPUT/GT/12-GT.png) | 811.95 (37920 pixels)
 ![](OUTPUT/ORIG/14-ORIG.png) |![](OUTPUT/TRIMAP/14-TRIMAP.png) |![](OUTPUT/MATTE/14-MATTE.png) |  ![](OUTPUT/GT/14-GT.png) | 1310.87 (38160 pixels)
 ![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 818.3 (41760 pixels)
+
+
+
+
+
+### References
+
+[1] Yung-Yu Chuang, Brian Curless, David H. Salesin, and Richard Szeliski. A Bayesian Approach to Digital Matting. In _Proceedings of IEEE Computer Vision and Pattern Recognition (CVPR 2001)_, Vol. II, 264-271, December 2001
+
+[2] Forte Marco, bayesian matting, (2018), GitHub repository, https://github.com/MarcoForte/bayesian-matting
+
+[3] Wakankar Anushka, Poisson Matting, (2019), GitHub repository https://github.com/anushkawakankar/Poisson-Matting
+
+[4]"贝叶斯估计、最大似然估计、最大后验概率与Baysian Matting - EpsAvlc的博客", Epsavlc.github.io, 2020.  https://epsavlc.github.io/2018/12/22/baysian-matting.html. 
+
+[5] "Image Matting/Compositing", Ifp.illinois.edu, 2020. Available: http://www.ifp.illinois.edu/~yuhuang/matting.html.
 
 
