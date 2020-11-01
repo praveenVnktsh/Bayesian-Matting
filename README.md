@@ -8,9 +8,9 @@ Relevant files have been added to the zip file as well. -->
 
 ### Implementation - Explanation
 
-Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by $\alpha$ and $1-\alpha$ respectively, where $\alpha$ is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of $\alpha$ for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
+Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by a and 1 - a respectively, where a is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of a for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
 
-- We know the observed colour as the pixel value in the image. Let us denote this pixel as $C$. We don't know the colour of the foreground, or the background, and hence need to estimate these by using a window around the area of interest. We can represent this mathematically as maximizing the probability of particular values of $F, B$ and  $\alpha$ given the observed colour $C$ as $\arg \max _{F, B, \alpha} P(F, B, \alpha \mid C)$. We need to find the values of $F, B$ and $\alpha$ for all pixels that are marked unknown in the trimap.
+<!-- - We know the observed colour as the pixel value in the image. Let us denote this pixel as $C$. We don't know the colour of the foreground, or the background, and hence need to estimate these by using a window around the area of interest. We can represent this mathematically as maximizing the probability of particular values of $F, B$ and  $\alpha$ given the observed colour $C$ as $\arg \max _{F, B, \alpha} P(F, B, \alpha \mid C)$. We need to find the values of $F, B$ and $\alpha$ for all pixels that are marked unknown in the trimap.
 
 - Using the Bayes theorem and assuming that the foregroung pixels and the background pixels are independent, we can rewrite this as:
 $$
@@ -68,8 +68,13 @@ $$
 
 - We are left with two equations that can now be iteratively solved in order to reach a good solution that maximizes the likelihood equation.
 
-- Since there were several clusters that we found previously, and we solved for only one cluster, we iterate through pairs of the foreground and background clusters to see which ordered pair gives the maximum likelihood for the probability.
+- Since there were several clusters that we found previously, and we solved for only one cluster, we iterate through pairs of the foreground and background clusters to see which ordered pair gives the maximum likelihood for the probability. -->
 
+![](images/1.png)
+
+![](images/2.png)
+
+![](images/3.png)
 
 ### Notes on Implementation
 
