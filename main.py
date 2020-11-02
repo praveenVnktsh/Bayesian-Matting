@@ -229,7 +229,7 @@ def iterativeSolver(fgMean, fgCov, bgMean, bgCov, colMean, colCov, initAlpha,  m
 def findSolution(orig, trimap, threshold = 10):
 	"""
 	Solves the bayesian matting problem given an image and the trimap. The threshold value defines the lowest number of datapoints 
-	required for the solver to attempt solving. If the threshold is too high and the solver goes into an infinite loop, the threshold is set to 0.
+	required for the solver to attempt solving. If the solver goes into an infinite loop due to low number of datapoints , the window size is increased.
 	Returns the estimated foreground, background, alpha matte, and the value of SAD from the ground truth.
 	"""
 	global fg, bg, alphaMask, nClusters
