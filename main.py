@@ -341,7 +341,7 @@ def findSolution(orig, trimap, threshold = 10):
 				cv2.waitKey(1)
 
 			iterations += 1
-
+	sad = np.sum(np.absolute(cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY ) - (alphaMask*255).astype(np.uint8)))/255
 	print('SOLVER COMPLETED IN ', iterations, 'ITERATIONS')
 	print('---------------------------------------------')
 	print('---------------------------------------------')
