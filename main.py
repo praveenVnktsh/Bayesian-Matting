@@ -2,7 +2,9 @@ import cv2
 import numpy as np
 from operator import itemgetter
 import json
+import os
 from numpy.linalg.linalg import solve
+from multiprocessing import Pool
 from sklearn.cluster import KMeans
 
 def showMultiImages(arr, name = 'MULTIIMAGE'):
@@ -226,7 +228,7 @@ def iterativeSolver(fgMean, fgCov, bgMean, bgCov, colMean, colCov, initAlpha,  m
 	return fgSolved, bgSolved, alphaSolved
 
 
-def findSolution(orig, trimap, threshold = 10):
+def findSolution(orig, trimap, gt, threshold = 10):
 	"""
 	Solves the bayesian matting problem given an image and the trimap. The threshold value defines the lowest number of datapoints 
 	required for the solver to attempt solving. If the solver goes into an infinite loop due to low number of datapoints , the window size is increased.
@@ -334,14 +336,14 @@ def findSolution(orig, trimap, threshold = 10):
 				print('SOLVED LOCATIONS = ', len(solvedLocations))
 				print('REMAINING LOCATIONS = ', len(unsolvedLocations) - len(solvedLocations))
 				print('INSUFFICIENT POINTS = ',  sum(insufficientDatapoints))
-				sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY )/255).astype(np.float) - (alphaMask)))
+				sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY)/255).astype(np.float) - np.nan_to_num(alphaMask)))
 				print('SAD = ', sad)
 				print('---------------------------------------------')
 				showMultiImages((fg, bg, gt, cv2.cvtColor((alphaMask*255).astype(np.uint8), cv2.COLOR_GRAY2BGR) ), 'CURRENT')
 				cv2.waitKey(1)
 
 			iterations += 1
-	sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY )/255).astype(np.float) - (alphaMask)))
+	sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY )/255).astype(np.float) - np.nan_to_num(alphaMask)))
 	print('SOLVER COMPLETED IN ', iterations, 'ITERATIONS')
 	print('---------------------------------------------')
 	print('---------------------------------------------')
@@ -351,23 +353,38 @@ def findSolution(orig, trimap, threshold = 10):
 	return fg, bg, alphaMask, sad
 
 
+
+def doProcess(index):
+	print('STARTING WITH IMAGE', str(index))
+	print('---------------------------------------------')
+	global f
+	f1 = open('OUTPUT/SAD/' + str(index) + '-SAD.txt','a')
+	f=open("OUTPUT/ERRORS/ERRORS" + str(index) +  ".txt", "w")
+	image, trimap, _, gt = getImages(index)
+	fg, bg, alphaMask,sad = findSolution(image, trimap, gt)
+	f1.write('SAD-' + str(index) + ' = ' + str(sad) + ' in ' + str(alphaMask.size) +  ' pixels \n' )
+	cv2.imwrite('OUTPUT/MATTE/'+  str(index) + '-MATTE.png',(alphaMask*255).astype(np.uint8))
+	np.save('OUTPUT/NUMPY/'+  str(index) + '.npy', alphaMask)
+	cv2.imwrite('OUTPUT/FG/'+  str(index) + '-FG.png',fg)
+	cv2.imwrite('OUTPUT/BG/'+  str(index) + '-BG.png',bg)
+	cv2.imwrite('OUTPUT/ORIG/'+  str(index) + '-ORIG.png',image)
+	cv2.imwrite('OUTPUT/GT/'+  str(index) + '-GT.png',gt)
+	cv2.imwrite('OUTPUT/TRIMAP/'+  str(index) + '-TRIMAP.png',trimap)
+	cv2.destroyAllWindows()
+	f1.close()
+	f.close()
+
+
+
 nClusters = 5
-f1 = open('SAD.txt','a')
-f=open("singulars.txt", "w")
 
-index = 1
+if __name__ == '__main__':
 
-print('STARTING WITH IMAGE', str(index))
-print('---------------------------------------------')
-image, trimap, trimap2, gt = getImages(index)
-fg, bg, alphaMask,sad = findSolution(image, trimap)
-f1.write('SAD-' + str(index) + ' = ' + str(sad) + ' in ' + str(alphaMask.size) +  'pixels \n' )
-cv2.imwrite('OUTPUT/MATTE/'+  str(index) + '-MATTE.png',(alphaMask*255).astype(np.uint8))
-np.save('OUTPUT/NUMPY/'+  str(index) + '.npy', alphaMask)
-cv2.imwrite('OUTPUT/FG/'+  str(index) + '-FG.png',fg)
-cv2.imwrite('OUTPUT/BG/'+  str(index) + '-BG.png',bg)
-cv2.imwrite('OUTPUT/ORIG/'+  str(index) + '-ORIG.png',image)
-cv2.imwrite('OUTPUT/GT/'+  str(index) + '-GT.png',gt)
-cv2.imwrite('OUTPUT/TRIMAP/'+  str(index) + '-TRIMAP.png',gt)
+	pool = Pool(processes=os.cpu_count())
 
-f1.close()
+	pool.map(doProcess, [6, 7, 12, 14])
+
+	
+	
+
+

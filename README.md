@@ -1,19 +1,18 @@
 
 <!-- ## Probability and Random Processes - Assignment 3 -->
-# Bayesian Matting
-###### Praveen Venkatesh 
 
-<!-- Link to repository - https://github.com/praveenVnktsh/Bayesian-Matting
+### Bayesian Matting
+###### Praveen Venkatesh
 
-Relevant files have been added to the zip file as well. -->
+
 
 ### Implementation - Explanation
 
 Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by a and 1 - a respectively, where a is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of a for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
+<!-- 
+- We know the observed colour as the pixel value in the image. Let us denote this pixel as $C$. We don't know the colour of the foreground, or the background, and hence need to estimate these by using a window around the area of interest. We can represent this mathematically as maximizing the probability of particular values of $F, B$ and  $\alpha$ given the observed colour $C$ as $\arg \max _{F, B, \alpha} P(F, B, \alpha \mid C)$. We need to find the values of $F, B$ and $\alpha$ for all pixels that are marked unknown in the trimap.
 
-<!-- - We know the observed colour as the pixel value in the image. Let us denote this pixel as $C$. We don't know the colour of the foreground, or the background, and hence need to estimate these by using a window around the area of interest. We can represent this mathematically as maximizing the probability of particular values of $F, B$ and  $\alpha$ given the observed colour $C$ as $\arg \max _{F, B, \alpha} P(F, B, \alpha \mid C)$. We need to find the values of $F, B$ and $\alpha$ for all pixels that are marked unknown in the trimap.
-
-- Using the Bayes theorem and assuming that the foregroung pixels and the background pixels are independent, we can rewrite this as:
+- Using the Bayes theorem and assuming that the foreground pixels and the background pixels are independent, we can rewrite this as:
 $$
 \arg \max _{F, B, \alpha} P(F, B, \alpha \mid C)
 =\arg \max _{F, B, \alpha} P(C \mid F, B, \alpha) \cdot P(F) \cdot P(B) \cdot P(\alpha) / P(C) 
@@ -89,18 +88,17 @@ $$
 
 ### Results
 
-Here are some results of the algorithm on a few images. The output can be tweaked by setting the various parameters of the algorithm appropriately. The SAD is computed from the opacity values.
-
+Here are some results of the algorithm on a few images. The output can be tweaked by setting the various parameters of the algorithm appropriately. The SAD is computed from the opacity values as the difference between absolute sum of difference per pixel between GT and the prediction. 
 Original | Trimap | Estimated   |  Ground Truth | SAD 
 :---:|:---:|:---------:|:--------:|:---:
-![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/01-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 1155.67 (35760 pixels)
-![](OUTPUT/ORIG/2-ORIG.png) |![](OUTPUT/TRIMAP/02-TRIMAP.png) |![](OUTPUT/MATTE/2-MATTE.png) |  ![](OUTPUT/GT/2-GT.png) | 1240.54 (37680 pixels)
-![](OUTPUT/ORIG/5-ORIG.png) |![](OUTPUT/TRIMAP/05-TRIMAP.png) |![](OUTPUT/MATTE/5-MATTE.png) |  ![](OUTPUT/GT/5-GT.png) | 668.50 (39840 pixels)
-![](OUTPUT/ORIG/6-ORIG.png) |![](OUTPUT/TRIMAP/06-TRIMAP.png) |![](OUTPUT/MATTE/6-MATTE.png) |  ![](OUTPUT/GT/6-GT.png) | 1966.21 (48720 pixels)
-![](OUTPUT/ORIG/7-ORIG.png) |![](OUTPUT/TRIMAP/07-TRIMAP.png) |![](OUTPUT/MATTE/7-MATTE.png) |  ![](OUTPUT/GT/7-GT.png) | 2111.16 (44400 pixels)
-![](OUTPUT/ORIG/12-ORIG.png) |![](OUTPUT/TRIMAP/12-TRIMAP.png) |![](OUTPUT/MATTE/12-MATTE.png) |  ![](OUTPUT/GT/12-GT.png) | 811.95 (37920 pixels)
-![](OUTPUT/ORIG/14-ORIG.png) |![](OUTPUT/TRIMAP/14-TRIMAP.png) |![](OUTPUT/MATTE/14-MATTE.png) |  ![](OUTPUT/GT/14-GT.png) | 1310.87 (38160 pixels)
-![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 818.3 (41760 pixels)
+![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/1-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 164.052 (10317 unknowns)
+![](OUTPUT/ORIG/2-ORIG.png) |![](OUTPUT/TRIMAP/2-TRIMAP.png) |![](OUTPUT/MATTE/2-MATTE.png) |  ![](OUTPUT/GT/2-GT.png) | 329.73 (15486 unknowns)
+![](OUTPUT/ORIG/5-ORIG.png) |![](OUTPUT/TRIMAP/5-TRIMAP.png) |![](OUTPUT/MATTE/5-MATTE.png) |  ![](OUTPUT/GT/5-GT.png) | 147.46 (7896 unknowns)
+![](OUTPUT/ORIG/6-ORIG.png) |![](OUTPUT/TRIMAP/6-TRIMAP.png) |![](OUTPUT/MATTE/6-MATTE.png) |  ![](OUTPUT/GT/6-GT.png) | 320.87 (15027 unknowns)
+![](OUTPUT/ORIG/7-ORIG.png) |![](OUTPUT/TRIMAP/7-TRIMAP.png) |![](OUTPUT/MATTE/7-MATTE.png) |  ![](OUTPUT/GT/7-GT.png) | 262.72 (14301 unknowns)
+![](OUTPUT/ORIG/12-ORIG.png) |![](OUTPUT/TRIMAP/12-TRIMAP.png) |![](OUTPUT/MATTE/12-MATTE.png) |  ![](OUTPUT/GT/12-GT.png) | 177.76 (9081 unknowns)
+![](OUTPUT/ORIG/14-ORIG.png) |![](OUTPUT/TRIMAP/14-TRIMAP.png) |![](OUTPUT/MATTE/14-MATTE.png) |  ![](OUTPUT/GT/14-GT.png) | 214.80 (10014 unknowns)
+![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 267.00 (6864 unknowns)
 
 
 
