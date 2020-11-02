@@ -334,14 +334,14 @@ def findSolution(orig, trimap, threshold = 10):
 				print('SOLVED LOCATIONS = ', len(solvedLocations))
 				print('REMAINING LOCATIONS = ', len(unsolvedLocations) - len(solvedLocations))
 				print('INSUFFICIENT POINTS = ',  sum(insufficientDatapoints))
-				sad = np.sum(np.absolute(cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY ) - (alphaMask*255).astype(np.uint8)))/255
+				sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY )/255).astype(np.float) - (alphaMask)))
 				print('SAD = ', sad)
 				print('---------------------------------------------')
 				showMultiImages((fg, bg, gt, cv2.cvtColor((alphaMask*255).astype(np.uint8), cv2.COLOR_GRAY2BGR) ), 'CURRENT')
 				cv2.waitKey(1)
 
 			iterations += 1
-	sad = np.sum(np.absolute(cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY ) - (alphaMask*255).astype(np.uint8)))/255
+	sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY )/255).astype(np.float) - (alphaMask)))
 	print('SOLVER COMPLETED IN ', iterations, 'ITERATIONS')
 	print('---------------------------------------------')
 	print('---------------------------------------------')
