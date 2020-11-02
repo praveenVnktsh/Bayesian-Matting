@@ -122,6 +122,4 @@ Original | Trimap | Estimated   |  Ground Truth | SAD
 ---------
 ###### Disclaimer
 
-This repo was submitted as a submission for Assignment 3 of the Probability and Random Processes Course at IITGN during the Academic year 20-21
-
-
+This repository was submitted for the Probability and Random Processes course as an assignment offered at IIT Gandhinagar during the academic year 2020-2021.
