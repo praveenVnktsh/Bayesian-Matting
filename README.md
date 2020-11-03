@@ -91,7 +91,7 @@ $$
 Here are some results of the algorithm on a few images. The output can be tweaked by setting the various parameters of the algorithm appropriately. The SAD is computed from the opacity values as the difference between absolute sum of difference per pixel between GT and the prediction. 
 Original | Trimap | Estimated   |  Ground Truth | SAD 
 :---:|:---:|:---------:|:--------:|:---:
-![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/1-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 164.052 (10317 unknowns)
+![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/1-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 1719.04 (397000 unknowns)
 ![](OUTPUT/ORIG/2-ORIG.png) |![](OUTPUT/TRIMAP/2-TRIMAP.png) |![](OUTPUT/MATTE/2-MATTE.png) |  ![](OUTPUT/GT/2-GT.png) | 329.73 (15486 unknowns)
 ![](OUTPUT/ORIG/5-ORIG.png) |![](OUTPUT/TRIMAP/5-TRIMAP.png) |![](OUTPUT/MATTE/5-MATTE.png) |  ![](OUTPUT/GT/5-GT.png) | 147.46 (7896 unknowns)
 ![](OUTPUT/ORIG/6-ORIG.png) |![](OUTPUT/TRIMAP/6-TRIMAP.png) |![](OUTPUT/MATTE/6-MATTE.png) |  ![](OUTPUT/GT/6-GT.png) | 320.87 (15027 unknowns)

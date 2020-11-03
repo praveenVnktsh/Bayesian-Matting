@@ -7,11 +7,11 @@ from numpy.linalg.linalg import solve
 from multiprocessing import Pool
 from sklearn.cluster import KMeans
 
-def showMultiImages(arr, name = 'MULTIIMAGE'):
+def showMultiImages(arr, name = 'MULTIIMAGE', scale = 0.5):
 	"""
 	Helper function that helps show images.
 	"""
-	arrNew = [cv2.resize(x, (0,0), fx = 1.5, fy = 1.5) for x in arr]
+	arrNew = [cv2.resize(x, (0,0), fx = scale, fy = scale) for x in arr]
 	cv2.imshow(name, np.concatenate(arrNew, axis=1))
 
 def showImage(image, name = 'showimage'):
@@ -20,7 +20,7 @@ def showImage(image, name = 'showimage'):
 	"""
 	cv2.imshow(name, cv2.resize(image, (350,350)))
 
-def getImages(index, scale = 0.3):
+def getImages(index, scale = 1):
 	"""
 	Grabs image from dataset and returns the ground truth, input, trimap, trimap 2 after rescaling to 30%.
 	"""
@@ -236,9 +236,7 @@ def findSolution(orig, trimap, gt, threshold = 10):
 	"""
 	global fg, bg, alphaMask, nClusters
 	
-	#define some constants
-	origWindowSize = 9
-	stdDevGaussian = 4
+
 	bgMask, fgMask, alphaMask = getFBM(trimap)
 
 
@@ -258,19 +256,19 @@ def findSolution(orig, trimap, gt, threshold = 10):
 	locationsToSolve = unsolvedLocations.copy()
 	sad = 0
 	passNumber = 0
-	
+	passThresh = 5
 	while len(locationsToSolve) != 0: # for multiple passes over unsolved locations
 		passNumber += 1
 		locationsToSolve = []
-		insufficientDatapoints = [] # use this to store if there is insufficient data (some pixel is skipped)
+		# insufficientDatapoints = [] # use this to store if there is insufficient data (some pixel is skipped)
 		for loce in unsolvedLocations: #find unsolved locations and solve them!
 			if loce not in solvedLocations:
 				locationsToSolve.append(loce)
-				insufficientDatapoints.append(0)
+				# insufficientDatapoints.append(0)
 
 		#If the window has too many unknowns, expand the window and finish solving.
-		if passNumber >= 100:
-			windowSize = ((origWindowSize + passNumber -100)//2)*2 + 1 #window size is an odd number, so //2 *2 + 1 gives odd
+		if passNumber >= passThresh:
+			windowSize = ((origWindowSize + passNumber -passThresh)//2)*2 + 1 #window size is an odd number, so //2 *2 + 1 gives odd
 			# this will increase size over each pass even if it is not required, but still gives reasonable results
 		else:
 			windowSize = origWindowSize
@@ -303,10 +301,10 @@ def findSolution(orig, trimap, gt, threshold = 10):
 			# if the number of unknowns is too many, then skip those ones for now. Solve them at the very end when there is enough 
 			# data!
 			if len(bgPixels) < threshold or len(fgPixels) < threshold:
-				insufficientDatapoints[locationsToSolve.index(location)] = 1
+				# insufficientDatapoints[locationsToSolve.index(location)] = 1
 				continue
 			else:
-				insufficientDatapoints[locationsToSolve.index(location)] = 0
+				# insufficientDatapoints[locationsToSolve.index(location)] = 0
 				solvedLocations.append(location)
 			
 
@@ -339,7 +337,8 @@ def findSolution(orig, trimap, gt, threshold = 10):
 				sad = np.sum(np.absolute((cv2.cvtColor(gt, cv2.COLOR_BGR2GRAY)/255).astype(np.float) - np.nan_to_num(alphaMask)))
 				print('SAD = ', sad)
 				print('---------------------------------------------')
-				showMultiImages((fg, bg, gt, cv2.cvtColor((alphaMask*255).astype(np.uint8), cv2.COLOR_GRAY2BGR) ), 'CURRENT')
+				alpha3channel = cv2.cvtColor((alphaMask*255).astype(np.uint8), cv2.COLOR_GRAY2BGR)
+				showMultiImages((fg, bg, gt, alpha3channel), 'CURRENT')
 				cv2.waitKey(1)
 
 			iterations += 1
@@ -377,12 +376,13 @@ def doProcess(index):
 
 
 nClusters = 5
-
+#define some constants
+origWindowSize = 19
+stdDevGaussian = 8
 if __name__ == '__main__':
 
 	pool = Pool(processes=os.cpu_count())
-
-	pool.map(doProcess, [6, 7, 12, 14])
+	pool.map(doProcess, [25])
 
 	
 	
