@@ -6,6 +6,24 @@
 
 
 
+### Results
+
+Here are some results of the algorithm on a few images. The output can be tweaked by setting the various parameters of the algorithm appropriately. The SAD is computed from the opacity values as the difference between absolute sum of difference per pixel between GT and the prediction. 
+Original | Trimap | Estimated   |  Ground Truth | SAD 
+:---:|:---:|:---------:|:--------:|:---:
+![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/1-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 1719.04 (397000 unknowns)
+![](OUTPUT/ORIG/2-ORIG.png) |![](OUTPUT/TRIMAP/2-TRIMAP.png) |![](OUTPUT/MATTE/2-MATTE.png) |  ![](OUTPUT/GT/2-GT.png) | 329.73 (15486 unknowns)
+![](OUTPUT/ORIG/5-ORIG.png) |![](OUTPUT/TRIMAP/5-TRIMAP.png) |![](OUTPUT/MATTE/5-MATTE.png) |  ![](OUTPUT/GT/5-GT.png) | 147.46 (7896 unknowns)
+![](OUTPUT/ORIG/6-ORIG.png) |![](OUTPUT/TRIMAP/6-TRIMAP.png) |![](OUTPUT/MATTE/6-MATTE.png) |  ![](OUTPUT/GT/6-GT.png) | 320.87 (15027 unknowns)
+![](OUTPUT/ORIG/7-ORIG.png) |![](OUTPUT/TRIMAP/7-TRIMAP.png) |![](OUTPUT/MATTE/7-MATTE.png) |  ![](OUTPUT/GT/7-GT.png) | 262.72 (14301 unknowns)
+![](OUTPUT/ORIG/12-ORIG.png) |![](OUTPUT/TRIMAP/12-TRIMAP.png) |![](OUTPUT/MATTE/12-MATTE.png) |  ![](OUTPUT/GT/12-GT.png) | 177.76 (9081 unknowns)
+![](OUTPUT/ORIG/14-ORIG.png) |![](OUTPUT/TRIMAP/14-TRIMAP.png) |![](OUTPUT/MATTE/14-MATTE.png) |  ![](OUTPUT/GT/14-GT.png) | 214.80 (10014 unknowns)
+![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 267.00 (6864 unknowns)
+
+
+
+
+
 ### Implementation - Explanation
 
 Here, we use a Bayesian Framework in order to achieve the problem of Natural Image Matting. The Image matting equation says that the observed colour is a linear combination of the foreground and background colors, weighted by a and 1 - a respectively, where a is a opacity matte that is unique for each pixel in the image. Here, we utilize a Bayesian Framework in order to find the best values of a for each pixel. Here is an explanation of the algorithm. We are given an input image as well as a trimap that indicates regions which belong surely to the background, surely to the foreground, and a gray area that we need to determine the values of opacity for:
@@ -83,24 +101,6 @@ $$
 - There is a defined threshold for the amount of data required to solve for a particular pixel. Sometimes, there is not enough data provided to the solver to cross the threshold and hence it goes into an infinite loop. To solve this, the window size is increased when the solver refuses to solve.
 
 - The images have been scaled down to 30% of their size in order to speed up computation. This is purely because of computational constraints as it takes too long to solve for the images.
-
-
-
-### Results
-
-Here are some results of the algorithm on a few images. The output can be tweaked by setting the various parameters of the algorithm appropriately. The SAD is computed from the opacity values as the difference between absolute sum of difference per pixel between GT and the prediction. 
-Original | Trimap | Estimated   |  Ground Truth | SAD 
-:---:|:---:|:---------:|:--------:|:---:
-![](OUTPUT/ORIG/1-ORIG.png) |![](OUTPUT/TRIMAP/1-TRIMAP.png) |![](OUTPUT/MATTE/1-MATTE.png) |  ![](OUTPUT/GT/1-GT.png) | 1719.04 (397000 unknowns)
-![](OUTPUT/ORIG/2-ORIG.png) |![](OUTPUT/TRIMAP/2-TRIMAP.png) |![](OUTPUT/MATTE/2-MATTE.png) |  ![](OUTPUT/GT/2-GT.png) | 329.73 (15486 unknowns)
-![](OUTPUT/ORIG/5-ORIG.png) |![](OUTPUT/TRIMAP/5-TRIMAP.png) |![](OUTPUT/MATTE/5-MATTE.png) |  ![](OUTPUT/GT/5-GT.png) | 147.46 (7896 unknowns)
-![](OUTPUT/ORIG/6-ORIG.png) |![](OUTPUT/TRIMAP/6-TRIMAP.png) |![](OUTPUT/MATTE/6-MATTE.png) |  ![](OUTPUT/GT/6-GT.png) | 320.87 (15027 unknowns)
-![](OUTPUT/ORIG/7-ORIG.png) |![](OUTPUT/TRIMAP/7-TRIMAP.png) |![](OUTPUT/MATTE/7-MATTE.png) |  ![](OUTPUT/GT/7-GT.png) | 262.72 (14301 unknowns)
-![](OUTPUT/ORIG/12-ORIG.png) |![](OUTPUT/TRIMAP/12-TRIMAP.png) |![](OUTPUT/MATTE/12-MATTE.png) |  ![](OUTPUT/GT/12-GT.png) | 177.76 (9081 unknowns)
-![](OUTPUT/ORIG/14-ORIG.png) |![](OUTPUT/TRIMAP/14-TRIMAP.png) |![](OUTPUT/MATTE/14-MATTE.png) |  ![](OUTPUT/GT/14-GT.png) | 214.80 (10014 unknowns)
-![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 267.00 (6864 unknowns)
-
-
 
 
 
