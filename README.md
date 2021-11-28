@@ -116,8 +116,3 @@ $$
 
 [5] "Image Matting/Compositing", Ifp.illinois.edu, 2020. Available: http://www.ifp.illinois.edu/~yuhuang/matting.html.
 
-
----------
-###### Disclaimer
-
-This repository was submitted for the Probability and Random Processes course as an assignment offered at IIT Gandhinagar during the academic year 2020-2021.
