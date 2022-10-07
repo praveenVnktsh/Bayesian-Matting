@@ -21,7 +21,9 @@ Original | Trimap | Estimated   |  Ground Truth | SAD
 ![](OUTPUT/ORIG/19-ORIG.png) |![](OUTPUT/TRIMAP/19-TRIMAP.png) |![](OUTPUT/MATTE/19-MATTE.png) |  ![](OUTPUT/GT/19-GT.png) | 267.00 (6864 unknowns)
 
 
-
+$$
+    L(C \mid F, B, \alpha)=-\|C-\alpha F-(1-\alpha) B\|^{2} / \sigma_{C}^{2}
+$$
 
 
 ### Implementation - Explanation
